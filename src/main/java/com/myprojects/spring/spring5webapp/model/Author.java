@@ -1,13 +1,21 @@
 package com.myprojects.spring.spring5webapp.model;
 
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Author {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String firstName;
     private String lastName;
 
+    @ManyToMany(mappedBy = "authors")
     private Set<Book> books = new HashSet<>();
 
     public Author(String firstName, String lastName) {
@@ -19,6 +27,13 @@ public class Author {
         this.firstName = firstName;
         this.lastName = lastName;
         this.books = books;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -44,11 +59,5 @@ public class Author {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
-
-
-
-
-
-
 
 }
